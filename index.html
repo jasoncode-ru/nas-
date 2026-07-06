@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAS 新蔬食｜讓每一餐蔬食都是幸福的選擇（逢甲店）</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 FontAwesome 圖示 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- 引入養心茶樓精品字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-red: #941B20;
+            --primary-green: #2D472F;
+            --cream: #FCFBF7;
+            --dark: #2B2A27;
+        }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: var(--cream); color: var(--dark); }
+        .font-serif { font-family: 'Noto Serif TC', serif; }
+        /* 隱藏滾動條 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- 1. 導覽列 -->
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="font-serif font-bold text-2xl text-[#941B20] tracking-wider">NAS 新蔬食</a>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
+                <a href="#menu-section" class="hover:text-[#2D472F] transition">美味菜單</a>
+                <a href="#about-section" class="hover:text-[#2D472F] transition">關於我們</a>
+                <a href="#payment-section" class="hover:text-[#2D472F] transition">多元支付</a>
+            </div>
+            <a href="https://line.me/ti/p/@379situd" target="_blank" class="bg-[#2D472F] hover:bg-[#1E3020] text-white text-xs font-bold px-5 py-2.5 rounded-full transition shadow-md">
+                <i class="fa-brands fa-line mr-1 text-base align-middle"></i> 線上點餐
+            </a>
+        </div>
+    </nav>
+
+    <!-- 2. 大器 Hero 主視覺 -->
+    <header class="relative h-[60vh] flex items-center justify-center text-center px-6 overflow-hidden bg-gray-900">
+        <!-- 背景大圖改用你最新的紅燒牛肉麵_2.jpg，食欲感拉滿 -->
+        <img src="紅燒牛肉麵_2.jpg" class="absolute inset-0 w-full h-full object-cover opacity-65">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"></div>
+        
+        <div class="relative z-10 max-w-3xl">
+            <span class="inline-block px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-xs tracking-widest text-white font-medium mb-6 uppercase">
+                逢甲商圈隱藏美食
+            </span>
+            <h1 class="font-serif font-bold text-4xl md:text-6xl text-white mb-6 tracking-wide drop-shadow-md">
+                讓每一餐蔬食，<br class="md:hidden">都是幸福的選擇
+            </h1>
+            <p class="text-gray-200 md:text-lg mb-8 tracking-widest font-light">
+                台中市西屯區文華路21號 (永新巷內)
+            </p>
+            <!-- 引流按鈕：直接去你的官方LINE點餐系統，支援 LINE Pay -->
+            <a href="https://line.me/ti/p/@379situd" target="_blank" class="inline-block bg-[#941B20] hover:bg-[#7a161a] text-white font-bold px-8 py-4 rounded-full shadow-lg transition-all transform hover:-translate-y-1 text-sm md:text-base">
+                立即進入 LINE 系統點餐 (支援 LINE Pay)
+            </a>
+        </div>
+    </header>
+
+    <!-- 3. 菜單切換與產品型錄區區塊 -->
+    <section id="menu-section" class="max-w-6xl mx-auto px-6 py-24">
+        <div class="text-center mb-16">
+            <h2 class="font-serif font-bold text-3xl md:text-4xl text-[#2D472F] mb-4">主廚手作餐點</h2>
+            <p class="text-gray-400 text-sm tracking-widest">嚴選原型食材 · 顛覆你對蔬食的刻板印象</p>
+        </div>
+
+        <!-- 分類標籤頁籤（手機版支援橫向滑動） -->
+        <div class="flex justify-start md:justify-center items-center gap-3 overflow-x-auto pb-6 mb-12 no-scrollbar border-b border-gray-100">
+            <button onclick="filterMenu('all')" id="cat-all" class="menu-tab bg-[#2D472F] text-white text-xs md:text-sm font-medium px-5 py-2.5 rounded-full whitespace-nowrap shadow-sm transition">全部好菜</button>
+            <button onclick="filterMenu('主食')" id="cat-主食" class="menu-tab bg-white text-gray-600 border border-gray-200 text-xs md:text-sm font-medium px-5 py-2.5 rounded-full whitespace-nowrap transition">飽胃主食</button>
+            <button onclick="filterMenu('羹湯')" id="cat-羹湯" class="menu-tab bg-white text-gray-600 border border-gray-200 text-xs md:text-sm font-medium px-5 py-2.5 rounded-full whitespace-nowrap transition">古法羹品</button>
+            <button onclick="filterMenu('小吃炸物')" id="cat-小吃炸物" class="menu-tab bg-white text-gray-600 border border-gray-200 text-xs md:text-sm font-medium px-5 py-2.5 rounded-full whitespace-nowrap transition">經典小吃</button>
+        </div>
+
+        <!-- 10 大新菜單網格（手機直列、電腦三欄） -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
+            <!-- 透過 JS 精確渲染 -->
+        </div>
+    </section>
+
+    <!-- 4. 關於我們與店家基本資料 -->
+    <section id="about-section" class="bg-white py-24 border-t border-gray-50">
+        <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="font-serif font-bold text-3xl text-[#2D472F] mb-6 border-l-4 border-[#941B20] pl-4">關於 NAS 新蔬食</h2>
+                <p class="text-gray-600 leading-relaxed mb-6 font-light text-sm md:text-base">
+                    我們隱身於台中西屯區文華路的巷弄內（永新巷內），致力於提供最高品質的手作蔬食料理。無論是全新推出、滋滋作響的鐵板麵系列，還是香氣迷人的古法肉羹與招牌紅燒牛肉麵，我們始終堅持使用原型食材，讓外食族與饕客都能吃得健康、舒心、毫無負擔。
+                </p>
+                <div class="space-y-3 text-sm text-gray-500">
+                    <p><b class="text-[#2D472F]">📍 住址：</b>台中市西屯區文華路21號 (永新巷內)</p>
+                    <p><b class="text-[#2D472F]">📞 訂餐專線：</b><a href="tel:0979752956" class="hover:underline text-gray-700 font-bold">0979-752-956</a></p>
+                    <p><b class="text-[#2D472F]">✉️ 官方信箱：</b>xxu5716@gmail.com</p>
+                    <p><b class="text-[#2D472F]">💬 官方 LINE：</b>@379situd</p>
+                </div>
+            </div>
+            
+            <!-- 右側：支付方式宣傳區塊 -->
+            <div id="payment-section" class="bg-[#FCFBF7] p-8 rounded-3xl border border-gray-100 shadow-sm text-center">
+                <h3 class="font-serif font-bold text-xl text-[#2D472F] mb-2">多樣化收款服務</h3>
+                <p class="text-gray-400 text-xs mb-6">店內系統已完美對接全球便捷金流</p>
+                <div class="flex justify-center items-center gap-8 text-4xl mb-6">
+                    <i class="fa-brands fa-line text-[#06C755]" title="LINE Pay"></i>
+                    <i class="fa-solid fa-credit-card text-blue-600" title="信用卡"></i>
+                    <i class="fa-solid fa-mobile-screen text-orange-500" title="行動支付 / 全支付"></i>
+                </div>
+                <p class="text-xs text-gray-500 leading-relaxed text-left max-w-xs mx-auto">
+                    • 支援 LINE 系統線上預約訂餐，並一鍵完成 **LINE Pay 結帳**<br>
+                    • 逢甲店面現場備有實體刷卡機服務
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. 頁尾 -->
+    <footer class="bg-[#2B2A27] text-gray-400 py-12 text-center text-xs border-t border-neutral-800">
+        <p class="mb-2 text-white"><b>NAS 新蔬食 - 全球開放官網</b></p>
+        <p>台中市西屯區文華路21號(永新巷內) | 專線：0979-752-956</p>
+        <p class="mt-4 text-neutral-600">© 2026 nas. All rights reserved. 逢甲商圈隱藏美味</p>
+    </footer>
+
+    <!-- 6. 常駐右下角 LINE 點餐浮動按鈕 -->
+    <a href="https://line.me/ti/p/@379situd" target="_blank" class="fixed bottom-6 right-6 bg-[#06C755] text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-xl hover:scale-110 transition z-50">
+        <i class="fa-brands fa-line"></i>
+    </a>
+
+    <!-- ==========================================
+         7. 核心產品渲染資料流 (Verbatim 新照片對齊)
+         ========================================== -->
+    <script>
+        const nasMenu = [
+            { name: "招牌紅燒牛肉麵", category: "主食", type: "全素 / 植物肉", tag: "鎮店之寶", desc: "店內點閱率冠軍！傳承職人中藥秘方慢火細燉的甘甜紅燒湯頭，搭配厚切植物牛肉與時令鮮蔬，層次完美。", price: 189, img: "紅燒牛肉麵_2.jpg" },
+            { name: "經典牛肉咖哩飯", category: "主食", type: "全素", tag: "濃郁爆款", desc: "日式醇厚咖哩醬汁慢火熬煮，與多汁香嫩的植物牛肉塊、胡蘿蔔、青花菜完美融合，回甘濃醇極具飽足感。", price: 169, img: "牛肉咖喱_2.jpg" },
+            { name: "牛肉蘑菇鐵板麵", category: "主食", type: "全素 / 經典夜市風", tag: "新品推薦", desc: "高溫鐵板炙燒逼出濃郁黑胡椒與蘑菇雙醬香氣，鋪上厚實大塊的植物牛肉與完美煎蛋，懷舊滋味激推！", price: 179, img: "牛肉蘑菇鐵板麵.jpg" },
+            { name: "G排蘑菇鐵板麵", category: "主食", type: "全素 / 酥脆激推", tag: "人氣新品", desc: "炙熱鐵板麵條吸飽鮮甜蘑菇醬汁，外皮炸得金黃脆口的純素巨無霸雞排，一口咬下多汁滿足，夜市頂級享受。", price: 179, img: "G排蘑菇鐵板麵.jpg" },
+            { name: "古法手作肉羹湯", category: "羹湯", type: "純素 / 經典台式", tag: "在地懷舊", desc: "辦桌級古法風味！主廚手作彈牙蔬食肉羹，融入筍絲、黑木耳與胡蘿蔔絲熬煮的滑順羹湯，鮮甜溫潤。", price: 75, img: "肉羹湯_2.jpg" },
+            { name: "古法肉羹飯", category: "羹湯", type: "純素", tag: "飽足首選", desc: "香 Q 白米飯澆淋上古法精燉的傳統手作肉羹湯，粒粒米飯充分吸飽清甜羹汁，口感順滑細緻。", price: 95, img: "肉羹飯_2.jpg" },
+            { name: "古法肉羹麵", category: "羹湯", type: "純素", tag: "經典麵食", desc: "嚴選在地滑溜黃麵，完美吸附帶有淡淡烏醋香與木耳筍絲精華的羹湯。麵條彈牙、羹肉紮實，百吃不厭。", price: 95, img: "肉羹麵_2.jpg" },
+            { name: "玉米可立餅", category: "小吃炸物", type: "純素 / 點心", tag: "特製炸物", desc: "外皮炸至金黃酥脆脆殼，內餡包裹著飽滿鮮甜的玉米粒與綿密細緻的馬鈴薯泥，大人小孩都瘋狂的小點。", price: 99, img: "玉米可立餅.jpg" },
+            { name: "玉米豆皮酥", category: "小吃炸物", type: "純素 / 傳統手作", tag: "獨家功夫菜", desc: "層層酥脆的金黃豆皮包裹著甜脆玉米，下油鍋炸得恰到好處，沾上特製醬汁，外酥內嫩的黃金比例。", price: 99, img: "玉米豆皮酥.jpg" },
+            { name: "古早味米血糕", category: "小吃炸物", type: "純素 / 台式小吃", tag: "必點夜市味", desc: "純素手工米血糕炸到外剛內柔，灑上滿滿的新鮮香菜與經典厚實花生粉，搭配特調醬油膏，台味十足！", price: 65, img: "米血糕.jpg" }
+        ];
+
+        let currentCat = 'all';
+
+        function filterMenu(cat) {
+            currentCat = cat;
+            
+            // 切換按鈕高亮樣式
+            document.querySelectorAll('.menu-tab').forEach(btn => {
+                btn.classList.remove('bg-[#2D472F]', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-white', 'text-gray-600', 'border', 'border-gray-200');
+            });
+            const activeBtn = document.getElementById(`cat-${cat}`);
+            if(activeBtn) {
+                activeBtn.classList.remove('bg-white', 'text-gray-600', 'border', 'border-gray-200');
+                activeBtn.classList.add('bg-[#2D472F]', 'text-white', 'shadow-sm');
+            }
+
+            renderGrid();
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('products-grid');
+            const filtered = currentCat === 'all' ? nasMenu : nasMenu.filter(p => p.category === currentCat);
+
+            grid.innerHTML = filtered.map(p => `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-[0_4px_25px_rgba(0,0,0,0.02)] border border-gray-100/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(0,0,0,0.06)]">
+                    <div class="relative aspect-[4/3] bg-gray-50">
+                        <img src="${p.img}" class="w-full h-full object-cover">
+                        <div class="absolute top-3 left-3 flex gap-1.5">
+                            <span class="bg-[#2D472F] text-white text-[10px] font-bold px-2 py-0.5 rounded tracking-wider">${p.type}</span>
+                            <span class="bg-[#941B20] text-white text-[10px] font-bold px-2 py-0.5 rounded tracking-wider">${p.tag}</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif font-bold text-lg text-gray-800 mb-2">${p.name}</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-6 h-10 line-clamp-2">${p.desc}</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-50">
+                            <span class="text-xl font-bold text-[#941B20] font-sans">NT$ ${p.price}</span>
+                            <a href="https://line.me/ti/p/@379situd" target="_blank" class="bg-[#2D472F] hover:bg-[#1E3020] text-white font-medium text-xs px-4 py-2.5 rounded-lg transition shadow-sm">
+                                前往 LINE 點餐 <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 初始載入
+        window.onload = function() {
+            renderGrid();
+        };
+    </script>
+</body>
+</html>
